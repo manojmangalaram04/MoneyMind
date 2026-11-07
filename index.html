@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101827">
+  <title>MoneyMind — Personal Finance</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="MoneyMind home">
+        <span class="brand-mark"><span></span><span></span><span></span></span>
+        <span>money<span class="brand-light">mind</span></span>
+      </a>
+      <div class="workspace-label">WORKSPACE</div>
+      <nav class="nav">
+        <a class="nav-link active" href="#overview"><span class="nav-icon">▦</span> Overview</a>
+        <a class="nav-link" href="#transactions"><span class="nav-icon">↕</span> Transactions</a>
+        <a class="nav-link" href="#budgets"><span class="nav-icon">◷</span> Budgets</a>
+        <a class="nav-link" href="#insights"><span class="nav-icon">⌁</span> Insights</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="help-card">
+          <div class="help-icon">✦</div>
+          <strong>Small steps add up.</strong>
+          <p>Build healthy money habits, one day at a time.</p>
+        </div>
+        <div class="profile">
+          <div class="avatar">MR</div>
+          <div><strong>My Wallet</strong><small>Personal account</small></div>
+          <button class="more-btn" id="resetDataBtn" aria-label="Reset demo data" title="Reset demo data">↻</button>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobileMenu" aria-label="Open menu">☰</button>
+        <div class="breadcrumb">Workspace <span>/</span> <strong>Overview</strong></div>
+        <div class="top-actions">
+          <span class="today" id="todayLabel"></span>
+          <button class="icon-button" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">◐</button>
+          <button class="primary-btn" id="addTransactionTop"><span>＋</span> Add transaction</button>
+        </div>
+      </header>
+
+      <section class="page-heading" id="overview">
+        <div>
+          <p class="eyebrow">YOUR FINANCIAL SNAPSHOT</p>
+          <h1>Good morning<span class="wave">,</span> let's make<br class="desktop-break"> your money work smarter.</h1>
+          <p class="subheading">Here's what's happening with your finances.</p>
+        </div>
+        <div class="month-select-wrap">
+          <span class="calendar-icon">▦</span>
+          <select id="monthFilter" aria-label="Select month"></select>
+        </div>
+      </section>
+
+      <section class="summary-grid" aria-label="Financial summary">
+        <article class="summary-card balance-card">
+          <div class="card-top"><span>Total balance</span><span class="mini-icon">◈</span></div>
+          <div class="amount" id="totalBalance">₹0</div>
+          <div class="card-foot"><span class="trend positive">↗ <b id="balanceTrend">Your money at a glance</b></span><span class="muted">Across all activity</span></div>
+          <div class="balance-decoration"></div>
+        </article>
+        <article class="summary-card">
+          <div class="card-top"><span>Total income</span><span class="mini-icon income-icon">↙</span></div>
+          <div class="amount" id="totalIncome">₹0</div>
+          <div class="card-foot"><span class="trend positive">＋ Money in</span><span class="muted">Selected month</span></div>
+        </article>
+        <article class="summary-card">
+          <div class="card-top"><span>Total expenses</span><span class="mini-icon expense-icon">↗</span></div>
+          <div class="amount" id="totalExpenses">₹0</div>
+          <div class="card-foot"><span class="trend negative">− Money out</span><span class="muted">Selected month</span></div>
+        </article>
+        <article class="summary-card">
+          <div class="card-top"><span>Savings rate</span><span class="mini-icon savings-icon">％</span></div>
+          <div class="amount" id="savingsRate">0%</div>
+          <div class="card-foot"><span class="trend positive">◎ Keep it going</span><span class="muted">Income saved</span></div>
+        </article>
+      </section>
+
+      <section class="content-grid">
+        <article class="panel cashflow-panel">
+          <div class="panel-heading">
+            <div><h2>Cash flow</h2><p>Income vs. expenses over time</p></div>
+            <div class="legend"><span><i class="dot income-dot"></i> Income</span><span><i class="dot expense-dot"></i> Expenses</span></div>
+          </div>
+          <div class="chart-wrap"><canvas id="cashflowChart" aria-label="Cash flow chart" role="img"></canvas></div>
+          <div class="chart-axis"><span>01</span><span>05</span><span>10</span><span>15</span><span>20</span><span>25</span><span>30</span></div>
+        </article>
+
+        <article class="panel spending-panel" id="insights">
+          <div class="panel-heading"><div><h2>Spending breakdown</h2><p>Where your money goes</p></div><span class="period-pill">This month</span></div>
+          <div class="spending-content">
+            <div class="donut-wrap"><div class="donut" id="spendingDonut"><div class="donut-center"><strong id="donutTotal">₹0</strong><small>Total spent</small></div></div></div>
+            <div class="category-list" id="categoryBreakdown"></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="bottom-grid">
+        <article class="panel transactions-panel" id="transactions">
+          <div class="panel-heading transaction-heading">
+            <div><h2>Recent transactions</h2><p>Your latest money moves</p></div>
+            <div class="transaction-actions">
+              <button class="text-btn" id="exportBtn" type="button">Export CSV ↓</button>
+              <button class="text-btn" id="viewAllBtn" type="button">View all <span>→</span></button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>NAME</th><th>CATEGORY</th><th>DATE</th><th>AMOUNT</th><th>ACTIONS</th></tr></thead>
+              <tbody id="transactionRows"></tbody>
+            </table>
+            <div class="empty-state hidden" id="emptyTransactions"><span>⌁</span><strong>No transactions yet</strong><p>Add your first transaction to get started.</p></div>
+          </div>
+        </article>
+        <article class="panel budget-panel" id="budgets">
+          <div class="panel-heading"><div><h2>Monthly budgets</h2><p>Stay on track with your goals</p></div><button class="round-add" id="addBudgetBtn" aria-label="Add budget">＋</button></div>
+          <div id="budgetList" class="budget-list"></div>
+          <button class="manage-budget" id="manageBudgetBtn">Manage budgets <span>→</span></button>
+        </article>
+      </section>
+      <footer>Made for mindful money decisions <span>✦</span> <small>MoneyMind · Your data stays in this browser</small></footer>
+    </main>
+  </div>
+
+  <div class="modal-backdrop hidden" id="transactionModal">
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header"><div><p class="eyebrow">MONEY MOVEMENT</p><h2 id="modalTitle">Add transaction</h2></div><button class="close-modal" data-close="transactionModal" aria-label="Close">×</button></div>
+      <form id="transactionForm">
+        <div class="type-toggle"><button type="button" class="type-btn selected" data-type="expense">Expense</button><button type="button" class="type-btn" data-type="income">Income</button></div>
+        <label for="transactionName">Transaction name</label><input id="transactionName" type="text" placeholder="e.g. Grocery shopping" maxlength="50" required>
+        <div class="form-row"><div><label for="transactionAmount">Amount (₹)</label><input id="transactionAmount" type="number" min="1" step="0.01" placeholder="0.00" required></div><div><label for="transactionDate">Date</label><input id="transactionDate" type="date" required></div></div>
+        <label for="transactionCategory">Category</label><select id="transactionCategory" required></select>
+        <label for="transactionNote">Note <span class="optional">(optional)</span></label><input id="transactionNote" type="text" placeholder="Add a short note" maxlength="100">
+        <div class="modal-actions"><button type="button" class="secondary-btn" data-close="transactionModal">Cancel</button><button type="submit" class="primary-btn">Save transaction</button></div>
+      </form>
+    </section>
+  </div>
+
+  <div class="modal-backdrop hidden" id="budgetModal">
+    <section class="modal small-modal" role="dialog" aria-modal="true" aria-labelledby="budgetModalTitle">
+      <div class="modal-header"><div><p class="eyebrow">PLAN AHEAD</p><h2 id="budgetModalTitle">Add a monthly budget</h2></div><button class="close-modal" data-close="budgetModal" aria-label="Close">×</button></div>
+      <form id="budgetForm">
+        <label for="budgetCategory">Category</label><select id="budgetCategory"></select>
+        <label for="budgetLimit">Monthly limit (₹)</label><input id="budgetLimit" type="number" min="1" step="1" placeholder="e.g. 5000" required>
+        <div class="modal-actions"><button type="button" class="secondary-btn" data-close="budgetModal">Cancel</button><button type="submit" class="primary-btn">Save budget</button></div>
+      </form>
+    </section>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
